@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Quiz Platform - Nền tảng trắc nghiệm miễn phí</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Login Screen -->
+        <div id="loginScreen" class="screen active">
+            <div class="login-container">
+                <h1>📚 Online Quiz Platform</h1>
+                <p class="subtitle">Nền tảng trắc nghiệm miễn phí</p>
+                
+                <div class="role-selection">
+                    <button class="role-btn" onclick="goToRole('admin')">
+                        <span class="role-icon">👨‍🏫</span>
+                        <span>Giáo viên / Admin</span>
+                    </button>
+                    <button class="role-btn" onclick="goToRole('student')">
+                        <span class="role-icon">👨‍🎓</span>
+                        <span>Học sinh</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Screen -->
+        <div id="adminScreen" class="screen">
+            <div class="admin-container">
+                <header class="header">
+                    <h1>🎓 Trang Quản lý Giáo viên</h1>
+                    <button class="btn btn-logout" onclick="logout()">Đăng xuất</button>
+                </header>
+
+                <div class="admin-content">
+                    <div class="section">
+                        <h2>Nhập dữ liệu từ File Word</h2>
+                        <div class="upload-area">
+                            <input type="file" id="wordFileInput" accept=".txt" onchange="handleFileUpload(event)">
+                            <label for="wordFileInput" class="upload-label">
+                                📄 Chọn file (.txt hoặc .docx text)
+                            </label>
+                            <p class="help-text">Định dạng: Câu hỏi? A) ... B) ... C) ... D) ...</p>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <h2>Tạo bài quiz mới</h2>
+                        <div class="form-group">
+                            <label>Tên bài quiz</label>
+                            <input type="text" id="quizName" placeholder="Nhập tên bài quiz">
+                        </div>
+                        <div class="form-group">
+                            <label>Mô tả</label>
+                            <textarea id="quizDescription" placeholder="Nhập mô tả bài quiz"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Thời gian làm bài (phút)</label>
+                            <input type="number" id="quizTime" placeholder="30" value="30">
+                        </div>
+                        <button class="btn btn-primary" onclick="createQuiz()">Tạo bài quiz</button>
+                    </div>
+
+                    <div class="section">
+                        <h2>Danh sách bài quiz</h2>
+                        <div id="quizList" class="quiz-list">
+                            <p class="empty-message">Chưa có bài quiz nào</p>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <h2>Kết quả bài thi</h2>
+                        <div id="resultsList" class="results-list">
+                            <p class="empty-message">Chưa có kết quả nào</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Student Screen -->
+        <div id="studentScreen" class="screen">
+            <div class="student-container">
+                <header class="header">
+                    <h1>📝 Làm bài quiz</h1>
+                    <button class="btn btn-logout" onclick="logout()">Đăng xuất</button>
+                </header>
+
+                <div id="quizListStudent" class="quiz-list-student">
+                    <p class="empty-message">Chưa có bài quiz nào</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quiz Taking Screen -->
+        <div id="quizScreen" class="screen">
+            <div class="quiz-container">
+                <header class="quiz-header">
+                    <div class="quiz-info">
+                        <h2 id="quizTitle">Tên bài quiz</h2>
+                        <p id="quizCurrentQuestion">Câu 1 / 10</p>
+                    </div>
+                    <div class="quiz-timer">
+                        <span id="timer">30:00</span>
+                    </div>
+                </header>
+
+                <div class="quiz-content">
+                    <div id="questionContainer" class="question-container">
+                        <!-- Dynamic question will be inserted here -->
+                    </div>
+
+                    <div class="quiz-navigation">
+                        <button class="btn btn-secondary" onclick="previousQuestion()">← Trước</button>
+                        <button class="btn btn-primary" onclick="nextQuestion()">Sau →</button>
+                        <button class="btn btn-danger" onclick="submitQuiz()">Nộp bài</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="resultsScreen" class="screen">
+            <div class="results-container">
+                <header class="header">
+                    <h1>📊 Kết quả bài thi</h1>
+                    <button class="btn btn-logout" onclick="goBack()">← Quay lại</button>
+                </header>
+
+                <div class="results-content">
+                    <div id="resultsSummary" class="results-summary">
+                        <!-- Results will be inserted here -->
+                    </div>
+
+                    <div id="resultsDetail" class="results-detail">
+                        <!-- Detailed results will be inserted here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
